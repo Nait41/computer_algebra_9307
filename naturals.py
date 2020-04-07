@@ -1,12 +1,16 @@
 class Natural:
+
     def __init__(self, num):
-        self.num = [int(i) for i in num]
+        self.number = [int(i) for i in num]
         self.pos = len(self.num) - 1
 
     def __str__(self):
         return ''.join(map(str, self.num))
 
-    # N-1
+    """
+    Автор: Мышкин Илья
+    Назначение: сравнение натуральных
+    """
     def COM_NN_D(self, oth):
         if self.pos > oth.pos:
             return 2
@@ -20,17 +24,21 @@ class Natural:
                     return 1
             return 0
 
-    # N-2
-    # NZER_N_B
-    def isnZero(self):
+    """
+    Автор: Мышкин Илья
+    Назначение: проверка на ноль
+    """
+    def NZER_N_B(self):
         if self.pos == 0 and self.num[0] == 0:
             return 0
         else:
             return 1
 
-    # N-3
-    # ADD_1N_N
-    def addOne(self):
+    """
+    Автор: Мышкин Илья
+    Назначение: добавление 1 к натуральному
+    """
+    def ADD_1N_N(self):
         self.num = self.num[::-1]  # если последвательность цифр уже перевернута, то удалить
         i = 0
         while self.num[i] + 1 > 9:
@@ -42,8 +50,11 @@ class Natural:
         self.num[i] += 1
         self.num = self.num[::-1]  # если последвательность цифр уже перевернута, то удалить
 
-    # N-4
-    # ADD_NN_N
+    """
+    Автор: Мышкин Илья
+    Назначение: сложение натуральных
+    Каноническое название: ADD_NN_N
+    """
     def __add__(self, other):
         self.num = self.num[::-1]  # если последвательность цифр уже перевернута, то удалить
         other.num = other.num[::-1]  # если последвательность цифр уже перевернута, то удалить
@@ -82,8 +93,11 @@ class Natural:
         res.num = res.num[::-1]
         return res
 
-    # N-5
-    # SUB_NN_N
+    """
+    Автор: Пармузин Вадим
+    Назначение: вычитание из большего натурального меньшего или равного
+    Каноническое название: SUB_NN_N
+    """
     def __sub__(self, oth):
         if self.COM_NN_D(oth) == 0:
             return Natural('0')
@@ -110,7 +124,10 @@ class Natural:
             a.pos -= 1
         return a
 
-    # N-6
+    """
+    Автор: Пармузин Вадим
+    Назначение: умножение натурального на цифру
+    """
     def MUL_ND_N(self, k):
         res = Natural(self.num)
         over = 0
@@ -126,40 +143,42 @@ class Natural:
             res.pos += len(str(over))
         return res
 
-    # N-7
+    """
+    Автор: Пармузин Вадим
+    Назначение: умножение натурального на 10^k
+    """
     def MUL_Nk_N(self, numeric):
         return Natural(self.num + list('0' * numeric))
 
-    # N-8
-    # MUL_NN_N
+    """
+    Автор: Пармузин Вадим
+    Назначение: умножение натуральных
+    Каноническое название: MUL_NN_N
+    """
     def __mul__(self, oth):
         res = Natural('0')
         for i in range(oth.pos, -1, -1):
             res += (self.MUL_ND_N(oth.num[i])).MUL_Nk_N(oth.pos - i)
         return res
 
-    # Автор: Медведев Олег
-    # Назначение модуля: Вычитание из натурального
-    # другого натурального, умноженного на цифру
+    """
+    Автор: Медведев Олег
+    Назначение: вычитание из натурального другого натурального, умноженного на цифру
+    """
     def SUB_NDN_N(self, oth, k):
         # temp - результат сравнения натуральных чисел
         temp = self.COM_NN_D(oth.MUL_ND_N(k))
-        '''Для Самвела. Если это будет проверять парсер,'''
-        '''то удали первую проверку'''
-        # Если уменьшаемое меньше вычитаемого,
-        # то возвращаем "код" ошибки
-        if temp == 1:
-            return -1
         # Если сравниваемые числа равны, нет смысла
         # в дальнейших вычислениях. Сразу возвращаем 0
-        elif temp == 0:
+        if temp == 0:
             return Natural('0')
         else:
             return self - oth.MUL_ND_N(k)
 
-    # Автор: Медведев Олег
-    # Назначение модуля: Вычисление первой цифры деления,
-    # домноженное на 10^k, где k - номер позиции этой цифры
+    """
+    Автор: Медведев Олег
+    Назначение: вычисление первой цифры деления, домноженное на 10^k, где k - номер позиции этой цифры
+    """
     def DIV_NN_Dk(self, oth):
         # temp - натуральное число, состоящее из старших
         # разрядов делимого, количество которых
@@ -197,16 +216,18 @@ class Natural:
             res += 1
         # Номер позиции первой цифры деления, k, равен
         # k = self.pos - oth.pos - flag)
-        return int(str(Natural(str(res)).MUL_Nk_N(self.pos - oth.pos - flag)))
+        return Natural(str(res)).MUL_Nk_N(self.pos - oth.pos - flag)
 
-    # Автор: Медведев Олег
-    # Каноничное название: DIV_NN_N
-    # Назначение модуля: Нахождение частного от деления
+    """
+    Автор: Медведев Олег
+    Назначение: нахождение частного от деления
+    Каноничное название: DIV_NN_N
+    """
     def __floordiv__(self, oth):
         # temp_1 - остаток
         temp_1 = Natural(self.num)
         # res - частное
-        res = 0
+        res = Natural('0')
         # Осуществляем процесс деления столбиком,
         # пока остаток больше делителя
         while temp_1.COM_NN_D(oth) != 1:
@@ -217,12 +238,14 @@ class Natural:
             # Так как модуль SUB_NDN_N подразумевает, что
             # второе натуральное число будет умножено на цифру,
             # то все нули из temp 2 переносим в делитель
-            temp_1 = temp_1.SUB_NDN_N(Natural(oth.num + list(str(temp_2)[1:])), int(str(temp_2)[0]))
+            temp_1 = temp_1.SUB_NDN_N(Natural(oth.num + temp_2.num[1:]), temp_2.num[0])
         return Natural(str(res))
 
-    # Автор: Медведев Олег
-    # Каноничное название: MOD_NN_N
-    # Назначение модуля: Нахождение остатка от деления
+    """
+    Автор: Медведев Олег
+    Назначение: нахождение остатка от деления
+    Каноничное название: MOD_NN_N
+    """
     def __mod__(self, oth):
         # res - отстаток
         res = Natural(self.num)
@@ -235,5 +258,23 @@ class Natural:
             # Так как модуль SUB_NDN_N подразумевает, что
             # второе натуральное число будет умножено на цифру,
             # то все нули из temp 2 переносим в делитель
-            res = res.SUB_NDN_N(Natural(oth.num + list(str(temp)[1:])), int(str(temp)[0]))
+            res = res.SUB_NDN_N(Natural(oth.num + temp.num[1:]), temp.num[0])
         return res
+
+    """
+    Автор: Багиев Арслан
+    Назначение: НОД двух чисел
+    """
+    def GCF_NN_N(self, oth):
+        res = Natural(self.num)
+        temp = Natural(oth.num)
+        while temp.NZER_N_B():
+            res, temp = temp, res % temp
+        return res
+
+    """
+    Автор: Багиев Арслан
+    Назначение: НОК двух чисел
+    """
+    def LCM_NN_N(self, oth):
+        return self * oth // self.GCF_NN_N(oth)
