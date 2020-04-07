@@ -1,5 +1,4 @@
 class Natural:
-
     def __init__(self, num):
         self.number = [int(i) for i in num]
         self.pos = len(self.number) - 1
