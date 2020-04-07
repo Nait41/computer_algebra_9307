@@ -39,7 +39,7 @@ class Natural:
     Назначение: добавление 1 к натуральному
     """
     def ADD_1N_N(self):
-        self.num = self.num[::-1]  # если последвательность цифр уже перевернута, то удалить
+        self.num = self.num[::-1]
         i = 0
         while self.num[i] + 1 > 9:
             if i + 1 > self.pos:
@@ -48,7 +48,7 @@ class Natural:
             self.num[i] = 0
             i += 1
         self.num[i] += 1
-        self.num = self.num[::-1]  # если последвательность цифр уже перевернута, то удалить
+        self.num = self.num[::-1]
 
     """
     Автор: Мышкин Илья
@@ -56,8 +56,8 @@ class Natural:
     Каноническое название: ADD_NN_N
     """
     def __add__(self, other):
-        self.num = self.num[::-1]  # если последвательность цифр уже перевернута, то удалить
-        other.num = other.num[::-1]  # если последвательность цифр уже перевернута, то удалить
+        self.num = self.num[::-1]
+        other.num = other.num[::-1]
         res = Natural(self.num)
 
         if res.pos < other.pos:
@@ -88,8 +88,8 @@ class Natural:
                 j += 1
             res.num[j] += 1
 
-        self.num = self.num[::-1]  # если последвательность цифр уже перевернута, то удалить
-        other.num = other.num[::-1]  # если последвательность цифр уже перевернута, то
+        self.num = self.num[::-1]
+        other.num = other.num[::-1]
         res.num = res.num[::-1]
         return res
 
