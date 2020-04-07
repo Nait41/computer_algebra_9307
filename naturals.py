@@ -2,10 +2,10 @@ class Natural:
 
     def __init__(self, num):
         self.number = [int(i) for i in num]
-        self.pos = len(self.num) - 1
+        self.pos = len(self.number) - 1
 
     def __str__(self):
-        return ''.join(map(str, self.num))
+        return ''.join(map(str, self.number))
 
     """
     Автор: Мышкин Илья
@@ -18,9 +18,9 @@ class Natural:
             return 1
         else:
             for i in range(self.pos + 1):
-                if self.num[i] > oth.num[i]:
+                if self.number[i] > oth.number[i]:
                     return 2
-                elif self.num[i] < oth.num[i]:
+                elif self.number[i] < oth.number[i]:
                     return 1
             return 0
 
@@ -29,7 +29,7 @@ class Natural:
     Назначение: проверка на ноль
     """
     def NZER_N_B(self):
-        if self.pos == 0 and self.num[0] == 0:
+        if self.pos == 0 and self.number[0] == 0:
             return 0
         else:
             return 1
@@ -39,16 +39,16 @@ class Natural:
     Назначение: добавление 1 к натуральному
     """
     def ADD_1N_N(self):
-        self.num = self.num[::-1]
+        self.number = self.number[::-1]
         i = 0
-        while self.num[i] + 1 > 9:
+        while self.number[i] + 1 > 9:
             if i + 1 > self.pos:
-                self.num.append(0)
+                self.number.append(0)
                 self.pos += 1
-            self.num[i] = 0
+            self.number[i] = 0
             i += 1
-        self.num[i] += 1
-        self.num = self.num[::-1]
+        self.number[i] += 1
+        self.number = self.number[::-1]
 
     """
     Автор: Мышкин Илья
@@ -56,41 +56,41 @@ class Natural:
     Каноническое название: ADD_NN_N
     """
     def __add__(self, other):
-        self.num = self.num[::-1]
-        other.num = other.num[::-1]
-        res = Natural(self.num)
+        self.number = self.number[::-1]
+        other.number = other.number[::-1]
+        res = Natural(self.number)
 
         if res.pos < other.pos:
             for i in range(other.pos - res.pos):
-                res.num.append(0)
+                res.number.append(0)
             res.pos = other.pos
         temp = 0
 
         for i in range(other.pos + 1):
-            res.num[i] = res.num[i] + other.num[i] + temp
-            if res.num[i] > 9:
+            res.number[i] = res.number[i] + other.number[i] + temp
+            if res.number[i] > 9:
                 temp = 1
             else:
                 temp = 0
-            res.num[i] = res.num[i] % 10
+            res.number[i] = res.number[i] % 10
 
         if res.pos == other.pos and temp == 1:
-            res.num.append(0)
+            res.number.append(0)
             res.pos += 1
 
         if res.pos > other.pos and temp == 1:
             j = other.pos + 1
-            while res.num[j] + 1 > 9:
+            while res.number[j] + 1 > 9:
                 if j + 1 > res.pos:
-                    res.num.append(0)
+                    res.number.append(0)
                     res.pos += 1
-                res.num[j] = 0
+                res.number[j] = 0
                 j += 1
-            res.num[j] += 1
+            res.number[j] += 1
 
-        self.num = self.num[::-1]
-        other.num = other.num[::-1]
-        res.num = res.num[::-1]
+        self.number = self.number[::-1]
+        other.number = other.number[::-1]
+        res.number = res.number[::-1]
         return res
 
     """
@@ -102,25 +102,25 @@ class Natural:
         if self.COM_NN_D(oth) == 0:
             return Natural('0')
         elif self.COM_NN_D(oth) == 2:
-            a = Natural(self.num)
-            b = Natural(oth.num)
+            a = Natural(self.number)
+            b = Natural(oth.number)
         else:
-            b = Natural(self.num)
-            a = Natural(oth.num)
+            b = Natural(self.number)
+            a = Natural(oth.number)
         dif = a.pos - b.pos
         for i in range(b.pos, -1, -1):
-            if a.num[i + dif] < b.num[i]:
+            if a.number[i + dif] < b.number[i]:
                 j = 1
-                while a.num[i - j + dif] == 0:
-                    a.num[i - j + dif] = 9
+                while a.number[i - j + dif] == 0:
+                    a.number[i - j + dif] = 9
                     j += 1
-                a.num[i - j + dif] -= 1
-                a.num[i + dif] = a.num[i + dif] + 10 - b.num[i]
+                a.number[i - j + dif] -= 1
+                a.number[i + dif] = a.number[i + dif] + 10 - b.number[i]
             else:
-                a.num[i + dif] -= b.num[i]
+                a.number[i + dif] -= b.number[i]
         i = 0
-        while a.num[i] == 0:
-            del a.num[i]
+        while a.number[i] == 0:
+            del a.number[i]
             a.pos -= 1
         return a
 
@@ -129,17 +129,17 @@ class Natural:
     Назначение: умножение натурального на цифру
     """
     def MUL_ND_N(self, k):
-        res = Natural(self.num)
+        res = Natural(self.number)
         over = 0
         for i in range(self.pos, -1, -1):
-            res.num[i] = res.num[i] * k + over
+            res.number[i] = res.number[i] * k + over
             q = 0
-            while res.num[i] - q * 10 >= 0:
+            while res.number[i] - q * 10 >= 0:
                 q += 1
             over = q - 1
-            res.num[i] = res.num[i] - 10 * over
+            res.number[i] = res.number[i] - 10 * over
         if over:
-            res.num = [int(i) for i in str(over)] + res.num
+            res.number = [int(i) for i in str(over)] + res.number
             res.pos += len(str(over))
         return res
 
@@ -148,7 +148,7 @@ class Natural:
     Назначение: умножение натурального на 10^k
     """
     def MUL_Nk_N(self, numeric):
-        return Natural(self.num + list('0' * numeric))
+        return Natural(self.number + list('0' * numeric))
 
     """
     Автор: Пармузин Вадим
@@ -158,7 +158,7 @@ class Natural:
     def __mul__(self, oth):
         res = Natural('0')
         for i in range(oth.pos, -1, -1):
-            res += (self.MUL_ND_N(oth.num[i])).MUL_Nk_N(oth.pos - i)
+            res += (self.MUL_ND_N(oth.number[i])).MUL_Nk_N(oth.pos - i)
         return res
 
     """
@@ -183,14 +183,14 @@ class Natural:
         # temp - натуральное число, состоящее из старших
         # разрядов делимого, количество которых
         # соответсвует разрядности делителя
-        temp = Natural(self.num[:oth.pos + 1])
+        temp = Natural(self.number[:oth.pos + 1])
         # res - первая цифра деления
         res = 0
         flag = 0
         # Если temp меньше делителя, то добавляем
         # очередной разряд делимого
         if temp.COM_NN_D(oth) == 1:
-            temp.num.append(self.num[oth.pos + 1])
+            temp.number.append(self.number[oth.pos + 1])
             temp.pos += 1
             flag = 1
         # Вычитаем из temp делитель и увеличиваем res
@@ -203,15 +203,15 @@ class Natural:
             for i in range(oth.pos, -1, -1):
                 # Если разряд temp меньше разряда делителя,
                 # то занимаем 1 из следующего разряда temp
-                if temp.num[i + dif] < oth.num[i]:
-                    temp.num[i + dif] = 10 + temp.num[i + dif] - oth.num[i]
-                    temp.num[i + dif - 1] -= 1
+                if temp.number[i + dif] < oth.number[i]:
+                    temp.number[i + dif] = 10 + temp.number[i + dif] - oth.number[i]
+                    temp.number[i + dif - 1] -= 1
                 else:
-                    temp.num[i + dif] -= oth.num[i]
+                    temp.number[i + dif] -= oth.number[i]
             # Если при вычитании старший разряд temp стал равен 0,
             # то удаляем его из списка
-            if temp.num[0] == 0 and temp.pos:
-                del temp.num[0]
+            if temp.number[0] == 0 and temp.pos:
+                del temp.number[0]
                 temp.pos -= 1
             res += 1
         # Номер позиции первой цифры деления, k, равен
@@ -225,7 +225,7 @@ class Natural:
     """
     def __floordiv__(self, oth):
         # temp_1 - остаток
-        temp_1 = Natural(self.num)
+        temp_1 = Natural(self.number)
         # res - частное
         res = Natural('0')
         # Осуществляем процесс деления столбиком,
@@ -238,7 +238,7 @@ class Natural:
             # Так как модуль SUB_NDN_N подразумевает, что
             # второе натуральное число будет умножено на цифру,
             # то все нули из temp 2 переносим в делитель
-            temp_1 = temp_1.SUB_NDN_N(Natural(oth.num + temp_2.num[1:]), temp_2.num[0])
+            temp_1 = temp_1.SUB_NDN_N(Natural(oth.number + temp_2.number[1:]), temp_2.number[0])
         return Natural(str(res))
 
     """
@@ -248,7 +248,7 @@ class Natural:
     """
     def __mod__(self, oth):
         # res - отстаток
-        res = Natural(self.num)
+        res = Natural(self.number)
         # Осуществляем процесс деления столбиком,
         # пока остаток больше делителя
         while res.COM_NN_D(oth) != 1:
@@ -258,7 +258,7 @@ class Natural:
             # Так как модуль SUB_NDN_N подразумевает, что
             # второе натуральное число будет умножено на цифру,
             # то все нули из temp 2 переносим в делитель
-            res = res.SUB_NDN_N(Natural(oth.num + temp.num[1:]), temp.num[0])
+            res = res.SUB_NDN_N(Natural(oth.number + temp.number[1:]), temp.number[0])
         return res
 
     """
@@ -266,8 +266,8 @@ class Natural:
     Назначение: НОД двух чисел
     """
     def GCF_NN_N(self, oth):
-        res = Natural(self.num)
-        temp = Natural(oth.num)
+        res = Natural(self.number)
+        temp = Natural(oth.number)
         while temp.NZER_N_B():
             res, temp = temp, res % temp
         return res
