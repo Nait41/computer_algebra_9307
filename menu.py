@@ -18,37 +18,35 @@ class CalcWindow(QMainWindow):
         natural = menubar.addMenu("Натуральные числа")
         
         n_sum = QAction("Сумма", self)
-        n_sum.triggered.connect(self.add_window)
-
         n_sub = QAction("Разность", self)
-        n_sub.triggered.connect(self.sub_window)
-
         n_mult = QAction("Умножение", self)
-        n_mult.triggered.connect(self.mult_window)
-
         n_div = QAction("Деление", self)
         n_mod = QAction("Деление с остатком", self)
-        n_GCD = QAction("НОД", self)
-        n_LCM = QAction("НОК", self)
+        n_gcd = QAction("НОД", self)
+        n_lcm = QAction("НОК", self)
         
-        self.setBar(natural, [n_sum, n_sub, n_mult, n_div,
-                                  n_mod, n_GCD, n_LCM])
+        bar_elements = [n_sum, n_sub, n_mult, n_div, n_mod, n_gcd, n_lcm]
+        bar_actions = [self.n_add_window, self.n_sub_window, self.n_mult_window, self.n_div_window,
+                            self.n_mod_window, self.n_gcd_window, self.n_lcm_window]
+
+        self.set_bar(natural, bar_elements, bar_actions)
 
 
         whole = menubar.addMenu("Целые числа")
 
-        w_abs = QAction("Абсолютное значение", self)
         w_sum = QAction("Сумма", self)
         w_dif = QAction("Разность", self)
         w_mult = QAction("Умножение", self)
         w_div = QAction("Деление", self)
         w_mod = QAction("Деление с остатком", self)
-        w_GCD = QAction("НОД", self)
-        w_LCM = QAction("НОК", self)
+        w_gcd = QAction("НОД", self)
+        w_lcm = QAction("НОК", self)
 
-        # НАДО ЧТО-ТО ДОБАВИТЬ
-        self.setBar(whole, [w_abs, w_sum, w_dif, w_mult,
-                                  w_div, w_mod, w_GCD, w_LCM])
+        bar_elements = [w_sum, w_dif, w_mult, w_div, w_mod, w_gcd, w_lcm]
+        bar_actions = [self.w_sum_window, self.w_dif_window, self.w_mult_window, self.w_div_window,
+                            self.w_mod_window, self.w_gcd_window, self.w_lcm_window]
+
+        self.set_bar(whole, bar_elements, bar_actions)
 
 
         rational = menubar.addMenu("Рациональные числа")
@@ -62,58 +60,98 @@ class CalcWindow(QMainWindow):
 
     
     # Заполняем окно для "Натурльные числа" по шаблону
-    def fillNaturalsWindow(self, buttonName, actionFunc):
-        self.clearWidgets()
+    def fillNaturalWholeWindow(self, buttonName, actionFunc):
+        self.clear_widgets()
 
-        self.firstNumLine = QLineEdit(self)
-        self.secondNumLine = QLineEdit(self)
-        self.actionButton = QPushButton(self)
-        self.active_widgets = [self.firstNumLine, self.secondNumLine, self.actionButton]
+        self.first_num_line = QLineEdit(self)
+        self.second_num_line = QLineEdit(self)
+        self.action_button = QPushButton(self)
+        self.active_widgets = [self.first_num_line, self.second_num_line, self.action_button, self.answer_field]
 
-        self.firstNumLine.move(20, 40)
-        self.secondNumLine.move(140, 40)
-        self.actionButton.move(260, 40)
-        self.actionButton.resize(180, 30)
-        self.actionButton.setText(buttonName)
-        self.actionButton.clicked.connect(partial(actionFunc, self))
+        self.first_num_line.move(20, 40)
+        self.second_num_line.move(140, 40)
+        self.action_button.move(270, 40)
+        self.action_button.resize(200, 30)
+        self.action_button.setText(buttonName)
+        self.action_button.clicked.connect(partial(actionFunc, self))
 
         self.answer_field.move(41, 80)
         # Большая ширина, чтобы влезали ответы
         self.answer_field.resize(400, 30)
 
-        self.showWidgets()
+        self.show_widgets()
 
-
-    def add_window(self):
-        self.fillNaturalsWindow("Вычислить сумму", handlers.naturals_sum)
+    # НАТУРАЛЬНЫЕ ==================================================================
+    
+    def n_add_window(self):
+        self.fillNaturalWholeWindow("Вычислить сумму", handlers.naturals_sum)
         
+    def n_sub_window(self):
+        self.fillNaturalWholeWindow("Вычислить разность", handlers.naturals_sub)
 
-    def sub_window(self):
-        self.fillNaturalsWindow("Вычислить разность", handlers.naturals_sub)
+    def n_mult_window(self):
+        self.fillNaturalWholeWindow("Вычислить произведение", handlers.naturals_mult)
+
+    def n_div_window(self):
+        self.fillNaturalWholeWindow("Вычислить частное", handlers.naturals_div)
+
+    def n_mod_window(self):
+        self.fillNaturalWholeWindow("Вычислить остаток", handlers.naturals_mod)
+
+    def n_gcd_window(self):
+        self.fillNaturalWholeWindow("Вычислить НОД", handlers.naturals_gcd)
+
+    def n_lcm_window(self):
+        self.fillNaturalWholeWindow("Вычислить НОК", handlers.naturals_lcm)
+
+    # ==============================================================================
+
+    # ЦЕЛЫЕ ========================================================================
+
+    def w_sum_window(self):
+        self.fillNaturalWholeWindow("Вычислить сумму", handlers.whole_sum)
+
+    def w_dif_window(self):
+        self.fillNaturalWholeWindow("Вычислить разность", handlers.whole_dif)
+
+    def w_mult_window(self):
+        self.fillNaturalWholeWindow("Вычислить произведение", handlers.whole_mult)
+
+    def w_div_window(self):
+        self.fillNaturalWholeWindow("Вычислить частное", handlers.whole_div)
+
+    def w_mod_window(self):
+        self.fillNaturalWholeWindow("Вычислить остаток", handlers.whole_mod)
+
+    def w_gcd_window(self):
+        self.fillNaturalWholeWindow("Вычислить НОД", handlers.whole_gcd)
+
+    def w_lcm_window(self):
+        self.fillNaturalWholeWindow("Вычислить НОК", handlers.whole_lcm)
 
 
-    def mult_window(self):
-        self.fillNaturalsWindow("Вычислить произведение", handlers.naturals_mult)
+    # ==============================================================================
 
 
-    def setBar(self, bar, objs):
-        for obj in objs:
-            bar.addAction(obj)
+    def set_bar(self, bar, bar_elements, bar_actions):
+        for idx in range(len(bar_elements)):
+            bar.addAction(bar_elements[idx])
+            bar_elements[idx].triggered.connect(bar_actions[idx])
 
     
-    def setActions(self, actions):
-        pass
+    def set_actions(self, actions):
+        self.fillNaturalWholeWindow("Вычислить НОК", handlers.naturals_lcm)
 
 
-    def showWidgets(self):
+    def show_widgets(self):
         for widget in self.active_widgets:
             widget.show()
 
 
-    def clearWidgets(self):
-        for widget in self.active_widgets:
-            del widget
-
+    def clear_widgets(self):
+        for idx in range(len(self.active_widgets)):
+            self.active_widgets[idx].deleteLater()
+        self.active_widgets.clear()
 
 
 if __name__ == "__main__":
