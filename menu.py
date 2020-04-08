@@ -138,10 +138,6 @@ class CalcWindow(QMainWindow):
             bar.addAction(bar_elements[idx])
             bar_elements[idx].triggered.connect(bar_actions[idx])
 
-    
-    def set_actions(self, actions):
-        self.fillNaturalWholeWindow("Вычислить НОК", handlers.naturals_lcm)
-
 
     def show_widgets(self):
         for widget in self.active_widgets:
