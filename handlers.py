@@ -109,7 +109,7 @@ def whole_sum(window):
 
 def whole_dif(window):
     a, b = exctract_whole_numbers(window)
-    ans = a + b
+    ans = a - b
     window.answer_field.setText("Разность: " + str(ans))
 
 
@@ -122,11 +122,11 @@ def whole_div(window):
     a, b = exctract_whole_numbers(window)
 
     # Если b <= 0, или a < 0, или a < b
-    if b.POZ_Z_D() in [0, 1] or a.POZ_Z_D in [0, 1] or a.ABS_Z_N().COM_NN_D(b) == 1:
+    if b.POZ_Z_D() in [0, 1] or a.POZ_Z_D() in [0, 1] or a.ABS_Z_N().COM_NN_D(b.ABS_Z_N()) == 1:
         # ошибка
         return
 
-    ans = a / b
+    ans = a // b
     window.answer_field.setText("Частное: " + str(ans))
 
 
@@ -134,7 +134,7 @@ def whole_mod(window):
     a, b = exctract_whole_numbers(window)
 
     # Если b <= 0, или a < 0, или a < b
-    if b.POZ_Z_D() in [0, 1] or a.POZ_Z_D in [0, 1] or a.ABS_Z_N().COM_NN_D(b) == 1:
+    if b.POZ_Z_D() in [0, 1] or a.POZ_Z_D() in [0, 1] or a.ABS_Z_N().COM_NN_D(b.ABS_Z_N()) == 1:
         # ошибка
         return
 
