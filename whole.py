@@ -11,9 +11,6 @@ class Whole:
         else:
             self.natural_repr = Natural(number_str)
 
-    def __str__(self):
-        return str(self.natural_repr) if not self.sign else "-" + str(self.natural_repr)
-
     """
     Автор: Багиев Арслан
     Назначение: абсолютная величина
@@ -42,6 +39,8 @@ class Whole:
             self.sign = 0
         else:
             self.sign = 1
+
+        return self
 
     """
     Автор: Левицкий Дмитрий
@@ -132,6 +131,19 @@ class Whole:
         else:
             res = TRANS_N_Z(first % second)
         return res
+
+    """
+    Автор: Арутюнян Самвел
+    Назначение: НОК двух целых
+    ВРЕМЕННО?
+    """
+    def LCM_ZZ_Z(self, other):
+        a, b = self.ABS_Z_N(), other.ABS_Z_N()
+        return a.LCM_NN_N(b)
+
+
+    def __str__(self):
+        return str(self.natural_repr) if not self.sign else "-" + str(self.natural_repr)
 
 """
 Автор: Левицкий Дмитрий/Арутюнян Самвел
