@@ -64,7 +64,7 @@ class Rational:
     Назначение: умножение дробей
     Каноническое название: MUL_QQ_Q
     """
-    def __mult__(self, other):
+    def __mul__(self, other):
         new_numerator = self.numerator * other.numerator
         new_denominator = self.denominator * other.denominator
 
