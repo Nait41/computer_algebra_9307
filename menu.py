@@ -66,7 +66,7 @@ class CalcWindow(QMainWindow):
         self.first_num_line = QLineEdit(self)
         self.second_num_line = QLineEdit(self)
         self.action_button = QPushButton(self)
-        self.active_widgets = [self.first_num_line, self.second_num_line, self.action_button, self.answer_field]
+        self.active_widgets = [self.first_num_line, self.second_num_line, self.action_button]
 
         self.first_num_line.move(20, 40)
         self.second_num_line.move(140, 40)
@@ -152,6 +152,11 @@ class CalcWindow(QMainWindow):
         for idx in range(len(self.active_widgets)):
             self.active_widgets[idx].deleteLater()
         self.active_widgets.clear()
+        self.answer_field.clear()
+    
+    
+    def showError(self):
+        pass
 
 
 if __name__ == "__main__":
