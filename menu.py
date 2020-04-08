@@ -1,5 +1,5 @@
 import sys
-from PyQt5.QtWidgets import (QApplication, QMainWindow, QGridLayout,
+from PyQt5.QtWidgets import (QApplication, QMainWindow, QGridLayout, QMessageBox,
                                 QMenu, QAction, QLineEdit, QLabel, QPushButton)
 from PyQt5.QtCore import QSize
 import handlers
@@ -151,8 +151,14 @@ class CalcWindow(QMainWindow):
         self.answer_field.clear()
     
     
-    def showError(self):
-        pass
+    def showError(self, message):
+        error_box = QMessageBox()
+        error_box.setIcon(QMessageBox.Critical)
+        error_box.setWindowTitle("Неверный ввод")
+        error_box.setText(message)
+        error_box.setStandardButtons(QMessageBox.Ok)
+
+        value = error_box.exec()
 
 
 if __name__ == "__main__":
