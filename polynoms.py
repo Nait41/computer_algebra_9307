@@ -26,7 +26,7 @@ class Polynom:
     Назначение: умножение многочленов
     Каноническое название: MUL_PP_P
     """
-    def __mult__(self, other):
+    def __mul__(self, other):
         pass
 
 
