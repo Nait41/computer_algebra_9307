@@ -1,13 +1,52 @@
-# Белов Игорь
-def DEG_P_N(polynom):
-	for i in range(len(polynom) - 1, -1, -1):
-		if polynom[i]!=0:
-			return i
-	return 0
+class Polynom:
+    def __init__(self, coefs_dict={}):
+        self.coefs_dict = coefs_dict
 
-# Белов Игорь
-def LED_P_Q(polynom):
-	for i in range(len(polynom) - 1, -1, -1):
-		if polynom[i]!=0:
-			return polynom[i]
-	return 0
+
+    """
+    Автор:
+    Назначение: сложение многочленов
+    Каноническое название: ADD_PP_P
+    """
+    def __add__(self, other):
+        pass
+
+
+    """
+    Автор:
+    Назначение: вычитание многочленов
+    Каноническое название: SUB_PP_P
+    """
+    def __sub__(self, other):
+        pass
+
+
+    """
+    Автор:
+    Назначение: умножение многочленов
+    Каноническое название: MUL_PP_P
+    """
+    def __mult__(self, other):
+        pass
+
+
+    """
+    Автор:
+    Назначение: частное от деления многочленов
+    Каноническое название: DIV_PP_P
+    """
+    def __truediv__(self, other):
+        pass
+
+    # не меняйте пожалуйста эту функцию, сделано для равенства операций / и //
+    def __floordiv__(self, other):
+        return self / other
+
+    
+    """
+    Автор:
+    Назначение: остаток от деления многочленов
+    Каноническое название: MOD_PP_P
+    """
+    def __mod__(self, other):
+        pass
